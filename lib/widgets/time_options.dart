@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
+import 'package:pomodoro_app/constant/app_strings.dart';
 import 'package:pomodoro_app/providers/pomodoro_notifier.dart';
-import 'package:pomodoro_app/util/utils.dart';
+import 'package:pomodoro_app/providers/time_list_provider.dart';
 
 class TimeOptions extends ConsumerStatefulWidget {
   const TimeOptions({super.key});
@@ -15,22 +16,44 @@ class _TimeOptionsState extends ConsumerState<TimeOptions> {
   @override
   Widget build(BuildContext context) {
     // var provider = ref.watch(timerProvider);
+    var timeList = ref.watch(timeListProvider);
     var pomodoroController = ref.watch(pomodoroProvider);
     return SingleChildScrollView(
       controller: ScrollController(initialScrollOffset: 155),
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: selectableItems.map((time) {
+        children: timeList.map((time) {
           return InkWell(
+            onLongPress: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: Text(AppStrings.instance.cancel),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              ref.read(timeListProvider.notifier).deleteListItem(time);
+                              context.pop();
+                            },
+                            child: Text(AppStrings.instance.delete),
+                          ),
+                        ],
+                        title: Text(AppStrings.instance.areYouSureDelete),
+                      ));
+            },
             onTap: () {
-              ref.read(pomodoroProvider.notifier).selectTime(double.parse(time));
-              // setState(() {});
+              ref.read(pomodoroProvider.notifier).selectTime(double.parse(time.toString()));
             },
             child: Container(
               margin: const EdgeInsets.only(left: 10),
               width: 70,
               height: 50,
-              decoration: int.parse(time) == pomodoroController.time
+              decoration: int.parse(time.toString()) == pomodoroController.time
                   ? BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -49,8 +72,8 @@ class _TimeOptionsState extends ConsumerState<TimeOptions> {
               child: Center(
                 child: Text(
                   (int.parse(time) ~/ 60).toString(),
-                  style: context.textTheme.headlineSmall
-                      ?.copyWith(color: int.parse(time) == pomodoroController.time ? Colors.black : Colors.white),
+                  style: context.textTheme.headlineSmall?.copyWith(
+                      color: int.parse(time.toString()) == pomodoroController.time ? Colors.black : Colors.white),
                 ),
               ),
             ),

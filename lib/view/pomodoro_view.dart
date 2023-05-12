@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:kartal/kartal.dart';
 import 'package:pomodoro_app/constant/app_strings.dart';
 import 'package:pomodoro_app/providers/pomodoro_notifier.dart';
 import 'package:pomodoro_app/util/ad_helper.dart';
+import 'package:pomodoro_app/providers/time_list_provider.dart';
 import 'package:pomodoro_app/widgets/timer_card.dart';
 import '../widgets/my_pomo_button.dart';
 import '../widgets/time_options.dart';
@@ -17,6 +19,8 @@ class PomodoroScreen extends ConsumerStatefulWidget {
 }
 
 class _PomodoroScreenState extends ConsumerState<PomodoroScreen> {
+  TextEditingController textEditVariable = TextEditingController();
+
   late BannerAd _bannerAd;
   // ignore: unused_field
   bool _isBottomBannerAdLoaded = false;
@@ -48,6 +52,7 @@ class _PomodoroScreenState extends ConsumerState<PomodoroScreen> {
   void dispose() {
     super.dispose();
     _bannerAd.dispose();
+    textEditVariable.dispose();
   }
 
   @override
@@ -121,9 +126,48 @@ class _PomodoroScreenState extends ConsumerState<PomodoroScreen> {
       actions: [
         IconButton(
           onPressed: () {
-            ref.read(pomodoroProvider.notifier).reset();
+            showDialog(
+              context: context,
+              useSafeArea: true,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text(AppStrings.instance.addMinute),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextField(
+                        style: context.textTheme.headlineSmall,
+                        controller: textEditVariable,
+                        keyboardType: TextInputType.number,
+                      ),
+                      ElevatedButton(
+                        child: Text(AppStrings.instance.add),
+                        onPressed: () {
+                          if (textEditVariable.text.trim().isEmpty) {
+                            // boşlukları kaldırıp, boş mu diye kontrol ediyoruz
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(AppStrings.instance.addMinuteErrorText),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } else {
+                            ref
+                                .read(timeListProvider.notifier)
+                                .addListitem((int.parse(textEditVariable.text.trim()) * 60).toString());
+
+                            context.pop();
+                            textEditVariable.clear();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
           },
-          icon: const Icon(Icons.refresh),
+          icon: const Icon(Icons.add),
           color: Colors.black,
           iconSize: 20,
         ),

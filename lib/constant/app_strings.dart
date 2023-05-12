@@ -8,4 +8,10 @@ class AppStrings {
   }
 
   final String appName = "Pomodoro Time Pro";
+  final String addMinute = "Add minute";
+  final String add = "Add";
+  final String addMinuteErrorText = "The minute section cannot be left blank";
+  final String areYouSureDelete = "Are you sure you want to delete?";
+  final String delete = "Delete";
+  final String cancel = "Cancel";
 }

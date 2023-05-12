@@ -41,6 +41,14 @@ dependencies:
   kartal: ^2.8.0
   google_mobile_ads: ^3.0.0
   assets_audio_player: ^3.0.6
+  flutter_native_splash: ^2.2.19
+  shared_preferences: ^2.1.1
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  background_image: "assets/ic_background.jpg"
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +71,8 @@ flutter:
     - assets/sounds/alert_sound.mp3
     - assets/sounds/click_button.mp3
     - assets/sounds/pause.mp3
+    - assets/ic_background.jpg
+    - assets/
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
