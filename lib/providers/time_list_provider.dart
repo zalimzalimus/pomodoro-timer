@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../init/app_cache.dart';
 
-final timeListProvider = StateNotifierProvider<TimeListNotifier, List<String>>((ref) {
+final timeListProvider =
+    StateNotifierProvider<TimeListNotifier, List<String>>((ref) {
   return TimeListNotifier();
 });
 

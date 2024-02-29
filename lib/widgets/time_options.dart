@@ -31,14 +31,16 @@ class _TimeOptionsState extends ConsumerState<TimeOptions> {
                         actions: [
                           TextButton(
                             onPressed: () {
-                              context.pop();
+                              Navigator.pop(context);
                             },
                             child: Text(AppStrings.instance.cancel),
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              ref.read(timeListProvider.notifier).deleteListItem(time);
-                              context.pop();
+                              ref
+                                  .read(timeListProvider.notifier)
+                                  .deleteListItem(time);
+                              Navigator.pop(context);
                             },
                             child: Text(AppStrings.instance.delete),
                           ),
@@ -47,7 +49,9 @@ class _TimeOptionsState extends ConsumerState<TimeOptions> {
                       ));
             },
             onTap: () {
-              ref.read(pomodoroProvider.notifier).selectTime(double.parse(time.toString()));
+              ref
+                  .read(pomodoroProvider.notifier)
+                  .selectTime(double.parse(time.toString()));
             },
             child: Container(
               margin: const EdgeInsets.only(left: 10),
@@ -72,8 +76,11 @@ class _TimeOptionsState extends ConsumerState<TimeOptions> {
               child: Center(
                 child: Text(
                   (int.parse(time) ~/ 60).toString(),
-                  style: context.textTheme.headlineSmall?.copyWith(
-                      color: int.parse(time.toString()) == pomodoroController.time ? Colors.black : Colors.white),
+                  style: context.general.textTheme.headlineSmall?.copyWith(
+                      color:
+                          int.parse(time.toString()) == pomodoroController.time
+                              ? Colors.black
+                              : Colors.white),
                 ),
               ),
             ),

@@ -1,0 +1,23 @@
+{
+  "[dart]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll": "explicit"
+		},
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"editor.rulers": [
+		  80
+		],
+		"editor.selectionHighlight": false,
+		"editor.suggest.snippetsPreventQuickSuggestions": false,
+		"editor.suggestSelection": "first",
+		"editor.tabCompletion": "onlySnippets",
+		"editor.wordBasedSuggestions": "matchingDocuments"
+	},
+	"cSpell.language": "en,tr-TR,tr",
+  "cSpell.diagnosticLevel": "Hint",
+  "cSpell.words": [
+    "supabase",
+    "upsert"
+  ]
+}

@@ -7,11 +7,11 @@ class AppStrings {
     return _instance!;
   }
 
-  final String appName = "Pomodoro Time Pro";
-  final String addMinute = "Add minute";
-  final String add = "Add";
-  final String addMinuteErrorText = "The minute section cannot be left blank";
-  final String areYouSureDelete = "Are you sure you want to delete?";
-  final String delete = "Delete";
-  final String cancel = "Cancel";
+  final String appName = "Jasmin Academy Pomodoro";
+  final String addMinute = "Dakika ekle";
+  final String add = "Ekle";
+  final String addMinuteErrorText = "Dakika bölümü boş bırakılamaz!";
+  final String areYouSureDelete = "Silmek istediğinizden emin misiniz?";
+  final String delete = "Sil";
+  final String cancel = "İptal";
 }

@@ -3,17 +3,17 @@ import 'package:kartal/kartal.dart';
 
 class MyPomoButton extends StatelessWidget {
   const MyPomoButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.label,
-  }) : super(key: key);
+  });
   final VoidCallback onPressed;
   final String label;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: context.horizontalPaddingLow,
+      padding: context.padding.horizontalLow,
       child: ElevatedButton(
         onPressed: onPressed,
         child: Text(label),

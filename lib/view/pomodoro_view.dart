@@ -4,7 +4,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kartal/kartal.dart';
 import 'package:pomodoro_app/constant/app_strings.dart';
 import 'package:pomodoro_app/providers/pomodoro_notifier.dart';
-import 'package:pomodoro_app/util/ad_helper.dart';
 import 'package:pomodoro_app/providers/time_list_provider.dart';
 import 'package:pomodoro_app/widgets/timer_card.dart';
 import '../widgets/my_pomo_button.dart';
@@ -23,30 +22,30 @@ class _PomodoroScreenState extends ConsumerState<PomodoroScreen> {
 
   late BannerAd _bannerAd;
   // ignore: unused_field
-  bool _isBottomBannerAdLoaded = false;
+  final bool _isBottomBannerAdLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    createBottomBannerAd();
+    // createBottomBannerAd();
   }
 
-  void createBottomBannerAd() {
-    _bannerAd = BannerAd(
-        size: AdSize.banner,
-        adUnitId: AdHelper.bannerId,
-        listener: BannerAdListener(onAdLoaded: (_) {
-          setState(
-            () {
-              _isBottomBannerAdLoaded = true;
-            },
-          );
-        }, onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        }),
-        request: const AdRequest());
-    _bannerAd.load();
-  }
+  // void createBottomBannerAd() {
+  //   _bannerAd = BannerAd(
+  //       size: AdSize.banner,
+  //       adUnitId: AdHelper.bannerId,
+  //       listener: BannerAdListener(onAdLoaded: (_) {
+  //         setState(
+  //           () {
+  //             _isBottomBannerAdLoaded = true;
+  //           },
+  //         );
+  //       }, onAdFailedToLoad: (ad, error) {
+  //         ad.dispose();
+  //       }),
+  //       request: const AdRequest());
+  //   _bannerAd.load();
+  // }
 
   @override
   void dispose() {
@@ -136,9 +135,12 @@ class _PomodoroScreenState extends ConsumerState<PomodoroScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       TextField(
-                        style: context.textTheme.headlineSmall,
+                        style: context.general.textTheme.headlineSmall,
                         controller: textEditVariable,
                         keyboardType: TextInputType.number,
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       ElevatedButton(
                         child: Text(AppStrings.instance.add),
@@ -147,16 +149,17 @@ class _PomodoroScreenState extends ConsumerState<PomodoroScreen> {
                             // boşlukları kaldırıp, boş mu diye kontrol ediyoruz
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(AppStrings.instance.addMinuteErrorText),
+                                content: Text(
+                                    AppStrings.instance.addMinuteErrorText),
                                 backgroundColor: Colors.red,
                               ),
                             );
                           } else {
-                            ref
-                                .read(timeListProvider.notifier)
-                                .addListitem((int.parse(textEditVariable.text.trim()) * 60).toString());
+                            ref.read(timeListProvider.notifier).addListitem(
+                                (int.parse(textEditVariable.text.trim()) * 60)
+                                    .toString());
 
-                            context.pop();
+                            Navigator.pop(context);
                             textEditVariable.clear();
                           }
                         },
@@ -167,8 +170,7 @@ class _PomodoroScreenState extends ConsumerState<PomodoroScreen> {
               },
             );
           },
-          icon: const Icon(Icons.add),
-          color: Colors.black,
+          icon: const Icon(Icons.add, color: Colors.black),
           iconSize: 20,
         ),
       ],

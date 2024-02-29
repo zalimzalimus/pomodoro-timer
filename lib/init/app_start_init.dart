@@ -10,6 +10,6 @@ class AppStartInit {
     WidgetsFlutterBinding.ensureInitialized();
 
     await AppCache.instance.setup();
-    await MobileAds.instance.initialize();
+    // await MobileAds.instance.initialize();
   }
 }

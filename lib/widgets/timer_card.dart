@@ -21,7 +21,7 @@ class _TimerCardState extends ConsumerState<TimerCard> {
       children: <Widget>[
         Text(
           pomodoroState.currentMood,
-          style: context.textTheme.headlineMedium?.copyWith(
+          style: context.general.textTheme.headlineMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -50,7 +50,8 @@ class _TimerCardState extends ConsumerState<TimerCard> {
               child: Center(
                 child: Text(
                   (pomodoroState.time ~/ 60).toString(),
-                  style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold, fontSize: 70),
+                  style: context.general.textTheme.headlineLarge
+                      ?.copyWith(fontWeight: FontWeight.bold, fontSize: 70),
                 ),
               ),
             ),
@@ -59,7 +60,8 @@ class _TimerCardState extends ConsumerState<TimerCard> {
             ),
             Text(
               ':',
-              style: context.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: context.general.textTheme.headlineMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               width: 10,
@@ -81,8 +83,11 @@ class _TimerCardState extends ConsumerState<TimerCard> {
               ),
               child: Center(
                 child: Text(
-                  seconds == 0 ? '${seconds.round()}0' : seconds.round().toString(),
-                  style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold, fontSize: 70),
+                  seconds == 0
+                      ? '${seconds.round()}0'
+                      : seconds.round().toString(),
+                  style: context.general.textTheme.headlineLarge
+                      ?.copyWith(fontWeight: FontWeight.bold, fontSize: 70),
                 ),
               ),
             ),

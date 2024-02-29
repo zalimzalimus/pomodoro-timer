@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pomodoro_app/models/pomodoro_models.dart';
 
-final pomodoroProvider = StateNotifierProvider<PomodoroNotifier, PomodoroModels>((ref) {
+final pomodoroProvider =
+    StateNotifierProvider<PomodoroNotifier, PomodoroModels>((ref) {
   return PomodoroNotifier();
 });
+// final player = AudioPlayer();
 
 class PomodoroNotifier extends StateNotifier<PomodoroModels> {
   PomodoroNotifier()
@@ -40,10 +43,14 @@ class PomodoroNotifier extends StateNotifier<PomodoroModels> {
   }
 
   Future<void> clickButton() async {
+    // await player.play(AssetSource('sounds/click_button.mp3'));
+
     assetsAudioPlayer.open(Audio('assets/sounds/click_button.mp3'));
   }
 
   Future<void> playAlarm() async {
+    // await player.play(AssetSource('sounds/alert_sound.mp3'));
+
     assetsAudioPlayer.open(Audio('assets/sounds/alert_sound.mp3'));
   }
 
@@ -135,4 +142,15 @@ extension PomodoroEnumExtension on PomodoroEnums {
         return '';
     }
   }
+}
+
+class AudioUrl {
+  AudioUrl._();
+
+  static const String pause =
+      "https://firebasestorage.googleapis.com/v0/b/jasmin-apps-pomodoro-timer.appspot.com/o/pause.mp3?alt=media&token=1f947037-9871-4607-b86c-d953bb79211a";
+  static const String alert =
+      'https://firebasestorage.googleapis.com/v0/b/jasmin-apps-pomodoro-timer.appspot.com/o/alert_sound.mp3?alt=media&token=3885ce35-8ad2-44b6-a1f1-ebe93c204fa3';
+  static const String click =
+      'https://firebasestorage.googleapis.com/v0/b/jasmin-apps-pomodoro-timer.appspot.com/o/click_button.mp3?alt=media&token=c37fd657-e72c-42e5-9106-ee5348592f4b';
 }
